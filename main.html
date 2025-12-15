@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="精选开源项目，涵盖工具、多媒体处理、OCR识别等多个领域，持续更新中...">
+    <meta name="keywords" content="GitHub,开源项目,优质项目,Python,工具推荐">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="GitHub优质项目推荐">
+    <title>GitHub优质项目推荐</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            /* 颜色变量 */
+            --primary-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-primary: #0d1117;
+            --text-secondary: #57606a;
+            --text-light: #c9d1d9;
+            --border-color: #e1e4e8;
+            --border-light: #d0d7de;
+            --accent-color: #238636;
+            --accent-hover: #2ea043;
+            --highlight-color: #f9826c;
+            --link-color: #0969da;
+            --link-hover: #0550ae;
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --border-radius-sm: 6px;
+            --border-radius-full: 50%;
+            --spacing-xs: 8px;
+            --spacing-sm: 10px;
+            --spacing-md: 15px;
+            --spacing-lg: 20px;
+            --spacing-xl: 25px;
+            --spacing-xxl: 30px;
+            --spacing-xxxl: 40px;
+            --font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: var(--spacing-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxxl);
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, #24292e 0%, #0d1117 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        h1 i {
+            color: var(--highlight-color);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xxxl);
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: var(--spacing-md);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-number {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--border-radius-full);
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin: 0;
+        }
+
+        .project-title i {
+            color: var(--highlight-color);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            flex-grow: 1;
+            margin: 0;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f6f8fa;
+            color: var(--link-color);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            margin-top: var(--spacing-sm);
+        }
+
+        .project-link:hover {
+            background-color: var(--link-color);
+            color: white;
+            border-color: var(--link-color);
+        }
+
+        .category {
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .category h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin: 0;
+        }
+
+        .category h2 i {
+            color: var(--accent-color);
+        }
+
+        .add-project {
+            background-color: #f6f8fa;
+            border: 2px dashed var(--border-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xxl);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .add-project:hover {
+            background-color: #f0f5ff;
+            border-color: var(--link-color);
+            color: var(--link-color);
+        }
+
+        .add-project i {
+            font-size: 2.5rem;
+        }
+
+        .add-project h3 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: var(--spacing-xxl) 0;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xl);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .github-icon {
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            margin: 0 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .github-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #ddf4ff;
+            color: var(--link-color);
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: var(--spacing-xs);
+            margin-right: var(--spacing-xs);
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-lg);
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .close {
+            color: var(--text-secondary);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-family: var(--font-family);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--link-color);
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-family: var(--font-family);
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--link-color);
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: flex-end;
+            margin-top: var(--spacing-xl);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-family);
+        }
+
+        .btn-primary {
+            background-color: var(--link-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--link-hover);
+        }
+
+        .btn-secondary {
+            background-color: #f6f8fa;
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: #eaecef;
+        }
+
+        /* 项目操作按钮 */
+        .project-actions {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-sm);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.85rem;
+        }
+
+        .btn-edit {
+            background-color: #2188ff;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background-color: #0366d6;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                padding: var(--spacing-lg);
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: var(--spacing-lg);
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: var(--spacing-xs);
+            }
+
+            header {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+
+            .add-project {
+                padding: var(--spacing-xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-github"></i> GitHub优质项目推荐</h1>
+            <p class="subtitle">精选开源项目，涵盖工具、多媒体处理、OCR识别等多个领域，持续更新中...</p>
+        </header>
+        
+        <main>
+            <section class="category">
+                <h2><i class="fas fa-tools"></i> 一、GitHub项目分享</h2>
+            </section>
+            
+            <section class="projects-container" id="projects-list">
+                <!-- 项目卡片会通过JavaScript动态添加 -->
+            </section>
+            
+            <section class="add-project" id="add-project-btn">
+                <i class="fas fa-plus-circle"></i>
+                <h3>添加新项目</h3>
+                <p>点击此处添加更多优质GitHub项目</p>
+            </section>
+        </main>
+        
+        <footer>
+            <p>本页面将持续更新更多实用GitHub项目，欢迎推荐！</p>
+            <p style="margin-top: 10px;">
+                <i class="fab fa-github github-icon"></i>
+                Made with <i class="fas fa-heart" style="color: #f9826c;"></i> for GitHub lovers
+            </p>
+        </footer>
+    </div>
+
+    <!-- 添加/编辑项目模态框 -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">添加新项目</h2>
+                <span class="close" id="close-modal">&times;</span>
+            </div>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="project-title" class="form-label">项目名称</label>
+                    <input type="text" id="project-title" name="title" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description" class="form-label">项目描述</label>
+                    <textarea id="project-description" name="description" class="form-textarea" required rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-url" class="form-label">GitHub地址</label>
+                    <input type="url" id="project-url" name="url" class="form-input" required placeholder="https://github.com/">
+                </div>
+                <div class="form-group">
+                    <label for="project-tags" class="form-label">项目标签（用逗号分隔）</label>
+                    <input type="text" id="project-tags" name="tags" class="form-input" placeholder="视频下载,Python,工具">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-btn">取消</button>
+                    <button type="submit" class="btn btn-primary">保存项目</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 工具函数：XSS防护 - 转义HTML特殊字符
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 工具函数：从localStorage获取项目数据
+        function getProjectsFromStorage() {
+            const stored = localStorage.getItem('githubProjects');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    console.error('Failed to parse stored projects:', e);
+                }
+            }
+            // 默认项目数据
+            return [
+                {
+                    id: 1,
+                    title: "抖音/TikTok无水印下载",
+                    description: "抖音和TikTok视频无水印下载工具，支持批量下载，解析速度快，无需安装客户端。",
+                    url: "https://github.com/JoeanAmier/TikTokDownloader",
+                    tags: ["视频下载", "抖音", "TikTok", "Python"]
+                },
+                {
+                    id: 2,
+                    title: "OpenSpeedy - 开源游戏变速器",
+                    description: "一款开源的游戏变速器，也可以用于百度网盘等下载加速。将所有百度网盘进程选中，将变速速率调到60倍即可不限速下载。",
+                    url: "https://github.com/game1024/OpenSpeedy/tree/master",
+                    tags: ["加速器", "游戏工具", "下载加速", "C++"]
+                },
+                {
+                    id: 3,
+                    title: "Lossless Cut - 无损音视频剪切",
+                    description: "无损剪切大多数视频和音频格式，速度极快，基于FFmpeg，适用于快速编辑视频而无需重新编码。",
+                    url: "https://github.com/mifi/lossless-cut",
+                    tags: ["视频编辑", "音频处理", "FFmpeg", "JavaScript"]
+                },
+                {
+                    id: 4,
+                    title: "DouyinLiveRecorder - 直播录制",
+                    description: "可将喜欢的直播直接录制下来，方便有空时再进行观看或剪辑。支持循环值守和多人录制，兼容抖音、TikTok、Youtube等平台。",
+                    url: "https://github.com/ihmily/DouyinLiveRecorder",
+                    tags: ["直播录制", "抖音", "TikTok", "Python"]
+                },
+                {
+                    id: 5,
+                    title: "PaddleOCR - 飞桨OCR识别",
+                    description: "飞桨OCR分类模型可以直接从复杂场景图片里区分出文字信息所在的区块和文字所在坐标，非常适合游戏脚本里出现的文字与背景融合的情况。",
+                    url: "https://github.com/PaddlePaddle/PaddleOCR",
+                    tags: ["OCR", "文字识别", "深度学习", "Python"]
+                }
+            ];
+        }
+
+        // 工具函数：保存项目数据到localStorage
+        function saveProjectsToStorage(projects) {
+            localStorage.setItem('githubProjects', JSON.stringify(projects));
+        }
+
+        // 项目数据管理
+        let projects = getProjectsFromStorage();
+        let editingProjectId = null;
+
+        // DOM元素
+        const modal = document.getElementById('project-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const projectForm = document.getElementById('project-form');
+        const projectTitleInput = document.getElementById('project-title');
+        const projectDescriptionInput = document.getElementById('project-description');
+        const projectUrlInput = document.getElementById('project-url');
+        const projectTagsInput = document.getElementById('project-tags');
+        const addProjectBtn = document.getElementById('add-project-btn');
+        const closeModalBtn = document.getElementById('close-modal');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const projectsList = document.getElementById('projects-list');
+
+        // 渲染单个项目卡片
+        function renderProjectCard(project) {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.dataset.id = project.id;
+            
+            // 创建标签HTML（带XSS防护）
+            let tagsHTML = '';
+            if (project.tags && project.tags.length > 0) {
+                tagsHTML = project.tags.map(tag => 
+                    `<span class="tag">${escapeHtml(tag)}</span>`
+                ).join('');
+            }
+            
+            projectCard.innerHTML = `
+                <div class="project-number">${escapeHtml(project.id)}</div>
+                <h3 class="project-title">
+                    <i class="fas fa-code-branch"></i> ${escapeHtml(project.title)}
+                </h3>
+                <p class="project-desc">${escapeHtml(project.description)}</p>
+                ${tagsHTML}
+                <div style="margin-top: auto;">
+                    <a href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer" class="project-link">
+                        <i class="fab fa-github"></i> 查看项目
+                    </a>
+                    <div class="project-actions">
+                        <button class="btn btn-sm btn-edit" onclick="editProject(${project.id})">
+                            <i class="fas fa-edit"></i> 编辑
+                        </button>
+                        <button class="btn btn-sm btn-delete" onclick="deleteProject(${project.id})">
+                            <i class="fas fa-trash"></i> 删除
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return projectCard;
+        }
+
+        // 渲染所有项目卡片
+        function renderProjects() {
+            // 清空现有内容
+            projectsList.innerHTML = '';
+            
+            // 创建文档片段以减少DOM操作
+            const fragment = document.createDocumentFragment();
+            
+            projects.forEach(project => {
+                const card = renderProjectCard(project);
+                fragment.appendChild(card);
+            });
+            
+            // 一次性添加到DOM
+            projectsList.appendChild(fragment);
+        }
+
+        // 打开模态框
+        function openModal(isEdit = false, project = null) {
+            editingProjectId = isEdit ? project.id : null;
+            
+            if (isEdit) {
+                modalTitle.textContent = '编辑项目';
+                projectTitleInput.value = project.title;
+                projectDescriptionInput.value = project.description;
+                projectUrlInput.value = project.url;
+                projectTagsInput.value = project.tags.join(', ');
+            } else {
+                modalTitle.textContent = '添加新项目';
+                projectForm.reset();
+            }
+            
+            modal.classList.add('show');
+            // 自动聚焦到第一个输入框
+            projectTitleInput.focus();
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            modal.classList.remove('show');
+            editingProjectId = null;
+            projectForm.reset();
+        }
+
+        // 添加新项目
+        addProjectBtn.addEventListener('click', () => {
+            openModal(false);
+        });
+
+        // 关闭模态框事件
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 键盘事件：ESC键关闭模态框
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // 表单提交处理
+        projectForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // 获取表单数据
+            const title = projectTitleInput.value.trim();
+            const description = projectDescriptionInput.value.trim();
+            const url = projectUrlInput.value.trim();
+            const tagsInput = projectTagsInput.value.trim();
+            const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+            
+            // 表单验证
+            if (!title) {
+                alert('请输入项目名称');
+                projectTitleInput.focus();
+                return;
+            }
+            
+            if (!description) {
+                alert('请输入项目描述');
+                projectDescriptionInput.focus();
+                return;
+            }
+            
+            if (!url) {
+                alert('请输入项目GitHub地址');
+                projectUrlInput.focus();
+                return;
+            }
+            
+            // URL格式验证
+            try {
+                new URL(url);
+            } catch (error) {
+                alert('请输入有效的URL地址');
+                projectUrlInput.focus();
+                return;
+            }
+            
+            if (editingProjectId) {
+                // 编辑现有项目
+                const projectIndex = projects.findIndex(p => p.id === editingProjectId);
+                if (projectIndex !== -1) {
+                    projects[projectIndex] = {
+                        ...projects[projectIndex],
+                        title: title,
+                        description: description,
+                        url: url,
+                        tags: tags
+                    };
+                }
+            } else {
+                // 添加新项目
+                const newProject = {
+                    id: Math.max(0, ...projects.map(p => p.id)) + 1,
+                    title: title,
+                    description: description,
+                    url: url,
+                    tags: tags
+                };
+                projects.push(newProject);
+            }
+            
+            // 保存到localStorage
+            saveProjectsToStorage(projects);
+            
+            // 重新渲染项目列表
+            renderProjects();
+            
+            // 关闭模态框
+            closeModal();
+        });
+
+        // 编辑项目函数（全局可用）
+        window.editProject = function(id) {
+            const project = projects.find(p => p.id === id);
+            if (project) {
+                openModal(true, project);
+            }
+        };
+
+        // 删除项目函数（全局可用）
+        window.deleteProject = function(id) {
+            if (confirm('确定要删除这个项目吗？')) {
+                projects = projects.filter(p => p.id !== id);
+                saveProjectsToStorage(projects);
+                renderProjects();
+            }
+        };
+
+        // 页面加载完成后渲染项目
+        document.addEventListener('DOMContentLoaded', renderProjects);
+    </script>
+</body>
+</html>
