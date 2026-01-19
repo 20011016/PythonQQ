@@ -188,35 +188,6 @@
             color: var(--accent-color);
         }
 
-        .add-project {
-            background-color: #f6f8fa;
-            border: 2px dashed var(--border-light);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-xxl);
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            color: var(--text-secondary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .add-project:hover {
-            background-color: #f0f5ff;
-            border-color: var(--link-color);
-            color: var(--link-color);
-        }
-
-        .add-project i {
-            font-size: 2.5rem;
-        }
-
-        .add-project h3 {
-            font-size: 1.4rem;
-            margin: 0;
-        }
 
         footer {
             text-align: center;
@@ -483,14 +454,13 @@
             </section>
             
             <section class="add-project" id="add-project-btn">
-                <i class="fas fa-plus-circle"></i>
-                <h3>添加新项目</h3>
-                <p>点击此处添加更多优质GitHub项目</p>
+                
+
             </section>
         </main>
         
         <footer>
-            <p>本页面将持续更新更多实用GitHub项目，欢迎推荐！</p>
+            <p>本页面将持续更新更多实用GitHub项目，欢迎在QQ群里推荐！</p>
             <p style="margin-top: 10px;">
                 <i class="fab fa-github github-icon"></i>
                 Made with <i class="fas fa-heart" style="color: #f9826c;"></i> for GitHub lovers
@@ -559,7 +529,7 @@
                 },
                 {
                     id: 2,
-                    title: "OpenSpeedy - 开源游戏变速器（目前网盘加速应该无效了）",
+                    title: "OpenSpeedy - 开源游戏变速器（目前网盘加速还有效，变速速率改为22倍，2026/1/17）",
                     description: "一款开源的游戏变速器，也可以用于百度网盘等下载加速。将所有百度网盘进程选中，将变速速率调到60倍即可不限速下载。",
                     url: "https://github.com/game1024/OpenSpeedy/tree/master",
                     tags: ["加速器", "游戏工具", "下载加速", "C++"]
@@ -643,14 +613,6 @@
                     <a href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer" class="project-link">
                         <i class="fab fa-github"></i> 查看项目
                     </a>
-                    <div class="project-actions">
-                        <button class="btn btn-sm btn-edit" onclick="editProject(${project.id})">
-                            <i class="fas fa-edit"></i> 编辑
-                        </button>
-                        <button class="btn btn-sm btn-delete" onclick="deleteProject(${project.id})">
-                            <i class="fas fa-trash"></i> 删除
-                        </button>
-                    </div>
                 </div>
             `;
             
@@ -674,145 +636,7 @@
             projectsList.appendChild(fragment);
         }
 
-        // 打开模态框
-        function openModal(isEdit = false, project = null) {
-            editingProjectId = isEdit ? project.id : null;
-            
-            if (isEdit) {
-                modalTitle.textContent = '编辑项目';
-                projectTitleInput.value = project.title;
-                projectDescriptionInput.value = project.description;
-                projectUrlInput.value = project.url;
-                projectTagsInput.value = project.tags.join(', ');
-            } else {
-                modalTitle.textContent = '添加新项目';
-                projectForm.reset();
-            }
-            
-            modal.classList.add('show');
-            // 自动聚焦到第一个输入框
-            projectTitleInput.focus();
-        }
 
-        // 关闭模态框
-        function closeModal() {
-            modal.classList.remove('show');
-            editingProjectId = null;
-            projectForm.reset();
-        }
-
-        // 添加新项目
-        addProjectBtn.addEventListener('click', () => {
-            openModal(false);
-        });
-
-        // 关闭模态框事件
-        closeModalBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
-
-        // 点击模态框外部关闭
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // 键盘事件：ESC键关闭模态框
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('show')) {
-                closeModal();
-            }
-        });
-
-        // 表单提交处理
-        projectForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // 获取表单数据
-            const title = projectTitleInput.value.trim();
-            const description = projectDescriptionInput.value.trim();
-            const url = projectUrlInput.value.trim();
-            const tagsInput = projectTagsInput.value.trim();
-            const tags = tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
-            
-            // 表单验证
-            if (!title) {
-                alert('请输入项目名称');
-                projectTitleInput.focus();
-                return;
-            }
-            
-            if (!description) {
-                alert('请输入项目描述');
-                projectDescriptionInput.focus();
-                return;
-            }
-            
-            if (!url) {
-                alert('请输入项目GitHub地址');
-                projectUrlInput.focus();
-                return;
-            }
-            
-            // URL格式验证
-            try {
-                new URL(url);
-            } catch (error) {
-                alert('请输入有效的URL地址');
-                projectUrlInput.focus();
-                return;
-            }
-            
-            if (editingProjectId) {
-                // 编辑现有项目
-                const projectIndex = projects.findIndex(p => p.id === editingProjectId);
-                if (projectIndex !== -1) {
-                    projects[projectIndex] = {
-                        ...projects[projectIndex],
-                        title: title,
-                        description: description,
-                        url: url,
-                        tags: tags
-                    };
-                }
-            } else {
-                // 添加新项目
-                const newProject = {
-                    id: Math.max(0, ...projects.map(p => p.id)) + 1,
-                    title: title,
-                    description: description,
-                    url: url,
-                    tags: tags
-                };
-                projects.push(newProject);
-            }
-            
-            // 保存到localStorage
-            saveProjectsToStorage(projects);
-            
-            // 重新渲染项目列表
-            renderProjects();
-            
-            // 关闭模态框
-            closeModal();
-        });
-
-        // 编辑项目函数（全局可用）
-        window.editProject = function(id) {
-            const project = projects.find(p => p.id === id);
-            if (project) {
-                openModal(true, project);
-            }
-        };
-
-        // 删除项目函数（全局可用）
-        window.deleteProject = function(id) {
-            if (confirm('确定要删除这个项目吗？')) {
-                projects = projects.filter(p => p.id !== id);
-                saveProjectsToStorage(projects);
-                renderProjects();
-            }
-        };
 
         // 页面加载完成后渲染项目
         document.addEventListener('DOMContentLoaded', renderProjects);
