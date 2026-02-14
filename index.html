@@ -219,6 +219,42 @@
             margin-right: var(--spacing-xs);
         }
 
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-link:hover {
+            background-color: var(--link-color);
+            color: white;
+            border-color: var(--link-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
         /* 模态框样式 */
         .modal {
             display: none;
@@ -443,7 +479,16 @@
             <h1><i class="fab fa-github"></i> GitHub优质项目推荐</h1>
             <p class="subtitle">精选开源项目，涵盖工具、多媒体处理、OCR识别等多个领域，持续更新中...</p>
         </header>
-        
+
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link active">
+                <i class="fab fa-github"></i> GitHub项目推荐
+            </a>
+            <a href="python-tips.html" class="nav-link">
+                <i class="fab fa-python"></i> Python开发提示
+            </a>
+        </nav>
+
         <main>
             <section class="category">
                 <h2><i class="fas fa-tools"></i> 一、GitHub项目分享</h2>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python开发提示和技巧，提升编程效率">
+    <meta name="keywords" content="Python,开发技巧,编程提示,代码优化">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Python开发提示">
+    <title>Python开发提示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            --primary-bg: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-primary: #0d1117;
+            --text-secondary: #57606a;
+            --text-light: #c9d1d9;
+            --border-color: #e1e4e8;
+            --border-light: #d0d7de;
+            --accent-color: #238636;
+            --accent-hover: #2ea043;
+            --highlight-color: #f9826c;
+            --link-color: #0969da;
+            --link-hover: #0550ae;
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --border-radius-sm: 6px;
+            --border-radius-full: 50%;
+            --spacing-xs: 8px;
+            --spacing-sm: 10px;
+            --spacing-md: 15px;
+            --spacing-lg: 20px;
+            --spacing-xl: 25px;
+            --spacing-xxl: 30px;
+            --spacing-xxxl: 40px;
+            --font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: var(--spacing-lg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxxl);
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, #3776ab 0%, #ffd43b 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        h1 i {
+            color: white;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tips-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xxxl);
+        }
+
+        .tip-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 5px solid #3776ab;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: var(--spacing-md);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tip-number {
+            display: inline-block;
+            background-color: #3776ab;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--border-radius-full);
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+        }
+
+        .tip-title {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin: 0;
+        }
+
+        .tip-title i {
+            color: #ffd43b;
+        }
+
+        .tip-content {
+            color: var(--text-secondary);
+            flex-grow: 1;
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .tip-code {
+            background-color: #f6f8fa;
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius-sm);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            color: #24292e;
+        }
+
+        .category {
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .category h2 {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin: 0;
+        }
+
+        .category h2 i {
+            color: #3776ab;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #ddf4ff;
+            color: var(--link-color);
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: var(--spacing-xs);
+            margin-right: var(--spacing-xs);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-link:hover {
+            background-color: var(--link-color);
+            color: white;
+            border-color: var(--link-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background-color: #3776ab;
+            color: white;
+            border-color: #3776ab;
+        }
+
+        footer {
+            text-align: center;
+            padding: var(--spacing-xxl) 0;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xl);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .python-icon {
+            color: #3776ab;
+            font-size: 1.8rem;
+            margin: 0 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .python-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .tip-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #f6f8fa;
+            color: var(--link-color);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+            transition: all 0.2s ease;
+            margin-top: var(--spacing-sm);
+            align-self: flex-start;
+        }
+
+        .tip-link:hover {
+            background-color: var(--link-color);
+            color: white;
+            border-color: var(--link-color);
+        }
+
+        @media (max-width: 768px) {
+            .tips-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tip-card {
+                padding: var(--spacing-lg);
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: var(--spacing-xs);
+            }
+
+            header {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-python"></i> Python开发提示</h1>
+            <p class="subtitle">实用的Python编程技巧和最佳实践，提升代码质量和开发效率</p>
+        </header>
+
+        <nav class="nav-links">
+            <a href="index.html" class="nav-link">
+                <i class="fab fa-github"></i> GitHub项目推荐
+            </a>
+            <a href="python-tips.html" class="nav-link active">
+                <i class="fab fa-python"></i> Python脚本开发提示
+            </a>
+        </nav>
+        
+        <main>
+            <section class="category">
+                <h2><i class="fas fa-lightbulb"></i> Python脚本开发技巧</h2>
+            </section>
+            
+            <section class="tips-container" id="tips-list">
+            </section>
+        </main>
+        
+        <footer>
+            <p>持续更新更多Python开发技巧，欢迎分享你的经验！</p>
+            <p style="margin-top: 10px;">
+                <i class="fab fa-python python-icon"></i>
+                Made with <i class="fas fa-heart" style="color: #f9826c;"></i> for Python developers
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function getTipsFromStorage() {
+            const stored = localStorage.getItem('pythonTips');
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch (e) {
+                    console.error('Failed to parse stored tips:', e);
+                }
+            }
+            return [
+                {
+                    id: 1,
+                    title: "RapidOCR",
+                    content: "综合情况下，文字识别效果不错",
+                    url: "https://github.com/RapidAI/RapidOCR"
+                },
+                {
+                    id: 2,
+                    title: "开机自动运行脚本",
+                    content: "将打包后的快捷方式或bat文件放入启动文件夹即可",
+                    code: "1.打开windows的启动文件夹：shell:startup\n2.pyinstaller打包得到的快捷方式放入启动文件夹即可",
+                    url: "https://github.https://blog.csdn.net/qq_48979387/article/details/132359366/RapidAI/RapidOCR"
+                },
+                {
+                    id: 3,
+                    title: "pynput",
+                    content: "pynput可以实现部分游戏的WASD移动",
+                    url: "https://zhuanlan.zhihu.com/p/657981553"
+                },
+            ];
+        }
+
+        function saveTipsToStorage(tips) {
+            localStorage.setItem('pythonTips', JSON.stringify(tips));
+        }
+
+        function renderTipCard(tip) {
+            const tipCard = document.createElement('div');
+            tipCard.className = 'tip-card';
+            tipCard.dataset.id = tip.id;
+            
+            const codeHTML = tip.code ? `<div class="tip-code">${escapeHtml(tip.code)}</div>` : '';
+            const linkHTML = tip.url ? `
+                <div style="margin-top: auto;">
+                    <a href="${escapeHtml(tip.url)}" target="_blank" rel="noopener noreferrer" class="tip-link">
+                        <i class="fas fa-external-link-alt"></i> 相关链接
+                    </a>
+                </div>
+            ` : '';
+            
+            tipCard.innerHTML = `
+                <div>
+                    <span class="tip-number">${tip.id}</span>
+                    <h3 class="tip-title">
+                        <i class="fas fa-code"></i>
+                        ${escapeHtml(tip.title)}
+                    </h3>
+                </div>
+                <p class="tip-content">${escapeHtml(tip.content)}</p>
+                ${codeHTML}
+                ${linkHTML}
+            `;
+            
+            return tipCard;
+        }
+
+        function renderTips() {
+            const tipsList = document.getElementById('tips-list');
+            tipsList.innerHTML = '';
+            
+            const tips = getTipsFromStorage();
+            tips.forEach(tip => {
+                const tipCard = renderTipCard(tip);
+                tipsList.appendChild(tipCard);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderTips);
+    </script>
+</body>
+</html>
